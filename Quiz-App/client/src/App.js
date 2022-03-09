@@ -30,8 +30,10 @@ function App() {
       })
   }, [currentUrl])
 
+  console.log("This is the data", quizData);
 
-console.log(quizData)
+  console.log(quizData?.results)
+
 
   return (
     <div className="App">

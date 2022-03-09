@@ -1,7 +1,7 @@
 //General Imports
 const express = require("express");
 const cors = require("cors");
-var request = require("request");
+const fetch = require("node-fetch");
 // const http = require("http");
 // const https = require("https");
 //we are using express
@@ -23,21 +23,14 @@ app.get("/", (req, res) => {
 
 // app.get('/main', (req, res) => {
 
-// })
-
-//API call for mythology category
-// app.get("/mythology", (req, res) => {
-//     request(URLmythology, function(err, res, body){
-//         res.send(body);
-//     })
-// })
 
 //API call for general category
-app.get("/general", (req, res) => {
-    request("https://opentdb.com/api.php?amount=10&category=9"), function(err, res, body){
-        var data = JSON.parse(body)
-        res.send(data);
-    }
+app.get("/general", async (req, res) => {
+    const result = await fetch("https://opentdb.com/api.php?amount=10&category=9");
+
+    var data = await result.json()
+    res.send(data);
+   
 })
 
 
