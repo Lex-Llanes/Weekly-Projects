@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question renders properly as specified Matches the snapshot 1`] = `
+<div>
+  <br />
+  <h1>
+    Quiz question is: 
+  </h1>
+  <h5
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
+</div>
+`;

@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import { React, useState, useEffect, useRef } from "react"
-import Button from "./components/buttons"
+import Button from "./components/button/buttons"
+import Question from "./components/question/question"
+import Restart from "./components/restart/restart"
 
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
   const [error, setError] = useState(null);
 
 
+  let [question, setQuestion] = useState()
   let [correctAnswer, setCorrect] = useState()
   let [wrongAnswers, setWrong] = useState([]) //Use .map to set 3 wrong answers
 
@@ -41,9 +44,12 @@ function App() {
   console.log("This is the data", quizData);
   console.log(quizData?.results)
 
-
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const handleStartButton = (event) => {
+    setQuestion(question = quizData.results[0].question)
     setCorrect(correctAnswer = quizData.results[0].correct_answer)
     setWrong(wrongAnswers = quizData.results[0].incorrect_answers)
     wrongAnswers.push(correctAnswer)
@@ -60,9 +66,13 @@ function App() {
           onClick={handleStartButton}
         >
           START QUIZ GAME
+        
         </button>
-
+        <br></br>
+        <Restart restart={refreshPage} />
+        <Question question={question}/>
         <Button answers={wrongAnswers} />
+
       </header>
     </div>
   );
