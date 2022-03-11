@@ -26,8 +26,7 @@ app.get("/", (req, res) => {
 
 //API call for general category
 app.get("/general", async (req, res) => {
-    const result = await fetch("https://opentdb.com/api.php?amount=10&category=9");
-
+    const result = await fetch("https://opentdb.com/api.php?amount=10&type=multiple");
     var data = await result.json()
     res.send(data);
    
