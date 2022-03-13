@@ -5,7 +5,7 @@ import { render } from "@testing-library/react"
 import { create } from "react-test-renderer"
 import { isTSAnyKeyword } from "@babel/types"
 
-w
+
 
 describe("Question renders properly as specified", () => {
     it("Matches the snapshot", () => {
