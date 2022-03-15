@@ -12,6 +12,7 @@ exports[`Question renders properly as specified Matches the snapshot 1`] = `
         "__html": undefined,
       }
     }
+    data-testid="question-text"
   />
 </div>
 `;
