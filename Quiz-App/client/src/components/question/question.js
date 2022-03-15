@@ -7,7 +7,7 @@ const Question = (props) => {
         <div>
             <br></br>
             <h1>Quiz question is: </h1>
-            <h5 dangerouslySetInnerHTML={{__html:props.question}} />
+            <h5 data-testid="question-text" dangerouslySetInnerHTML={{__html:props.question}} />
         </div>
     )
 }

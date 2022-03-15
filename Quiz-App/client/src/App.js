@@ -19,25 +19,6 @@ function App() {
   let [wrongAnswers, setWrong] = useState([]) //Use .map to set 3 wrong answers
 
   //FETCHES API DATA
-  useEffect(() => {
-    fetch(currentUrl)
-      .then((response) => {
-        if(response.ok){
-          return response.json()
-        } else {
-          throw response
-        }
-      })
-      .then(setQuiz)
-      .then()
-      .catch((error) => {
-        console.error("Something went wrong with quiz", error)
-        setError(error)
-      })
-      .finally(() => {
-        /* Place Holder */
-      })
-  }, [currentUrl])
 
 
   //Checking API data
@@ -49,10 +30,26 @@ function App() {
   }
 
   const handleStartButton = (event) => {
-    setQuestion(question = quizData.results[0].question)
-    setCorrect(correctAnswer = quizData.results[0].correct_answer)
-    setWrong(wrongAnswers = quizData.results[0].incorrect_answers)
-    wrongAnswers.push(correctAnswer)
+    fetch(currentUrl)
+      .then((response) => {
+        if(response.ok){
+          return response.json()
+        } else {
+          throw response
+        }
+      })
+      .then((quizData) => {
+        setQuiz(quizData)
+        setQuestion(question = quizData.results[0].question)
+        setCorrect(correctAnswer = quizData.results[0].correct_answer)
+        setWrong(wrongAnswers = quizData.results[0].incorrect_answers)
+        wrongAnswers.push(correctAnswer)
+      })
+      .catch((error) => {
+        console.error("Something went wrong with quiz", error)
+        setError(error)
+      })
+    
   }
 
   console.log("wrong ", wrongAnswers)
@@ -62,7 +59,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
 
         {/* This button will trigger the set of the game */}
-        <button 
+        <button data-testid="start-button"
           onClick={handleStartButton}
         >
           START QUIZ GAME
