@@ -3,7 +3,10 @@ import React, { useState } from "react"
 
 
 const User = (props) => {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState([
+        {id: "123", name: "fake"},
+        {id: "456", name: "real"},
+    ]);
     const [userName, setUserName] = useState();
     const [userEmail, setUserEmail] = useState();
     const [userId, setUserId] = useState();
@@ -11,10 +14,14 @@ const User = (props) => {
     const handleUserSubmit = (event) => {
         event.preventDefault();
 
-        const newUser = {id: userId, name: userName, email: userEmail };
-        setUser(...user, newUser);
+        //const newUser = {id: userId, name: userName, email: userEmail };
+        setUser([...user, {id: userId, name: userName, email: userEmail }]);
     }
 
+    console.log(userName)
+    console.log(userEmail)
+    console.log(userId)
+    console.log(user)
 
     return (
         <div>
@@ -53,6 +60,10 @@ const User = (props) => {
                     onChange={(event) => setUserId(event.target.value)}
                 >
                 </input>
+                <br></br>
+                <br></br>
+
+                <input type="submit"></input>
             </form>
         </div>
     )
