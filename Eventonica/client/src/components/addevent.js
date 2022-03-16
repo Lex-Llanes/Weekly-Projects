@@ -1,11 +1,11 @@
 import React from "react"
 
 
-const AddEvent = (props) => {
+const Events = (props) => {
     return (
         <div>Add Event Input</div>
     )
 }
 
 
-export default AddEvent;
+export default Events;

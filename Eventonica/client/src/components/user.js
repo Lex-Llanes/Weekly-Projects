@@ -88,10 +88,14 @@
 
 import React, { useState, useReducer } from "react"
 
+
+//Actions used by reducer to see which switch to fire, the dispatch will pick one to send to reducer()
 const ACTIONS = {
     ADD_USER: "add-user"
 }
 
+
+//Reducer will run a switch case depending on what action we pass it
 function reducer (users, action) {
     switch (action.type) {
         case ACTIONS.ADD_USER:
@@ -101,26 +105,42 @@ function reducer (users, action) {
     }
 }
 
+//Created a function that simply handles returning the data we need for making a new user
 function newUser (passedUserName, passedUserEmail){
     return {id: Date.now(), name: passedUserName, email: passedUserEmail }
 }
 
 
 const User = (props) => {
-
+    /*
+    Our useReducer hook
+        ##users -> the variable we keep our data in
+        ##dispatch -> the function responsible for calling the reducer() function
+            because reducer() is outside the score of our component's function aka. const User
+        ##reducer -> the function which will handle all the different functionalities we need
+        ##[] -> this parameter can be anyting usually an object but because we will need to store several object
+            we will set it as an array to hold all our objects
+    */
     const [users, dispatch] = useReducer(reducer, [])
+    
 
+    //OUR STATES
     const [userName, setUserName] = useState();
     const [userEmail, setUserEmail] = useState();
     const [userId, setUserId] = useState();
 
+
+    //HANDLES THE SUBMIT BUTTON - it calls dispatch so that reducer handles our functionality
     const handleUserSubmit = (event) => {
         event.preventDefault();
         dispatch({ type: ACTIONS.ADD_USER, payload: { name: userName, email: userEmail}})
-
     }
 
     console.log(users)
+
+
+
+    //OUR RETURN
     return (
         <div>
             <form onSubmit={handleUserSubmit}>
