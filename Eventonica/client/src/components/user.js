@@ -90,15 +90,15 @@ import React, { useState, useReducer } from "react"
 
 
 //Actions used by reducer to see which switch to fire, the dispatch will pick one to send to reducer()
-const ACTIONS = {
+const ACTION = {
     ADD_USER: "add-user"
 }
 
 
 //Reducer will run a switch case depending on what action we pass it
-function reducer (users, action) {
+function reducer(users, action) {
     switch (action.type) {
-        case ACTIONS.ADD_USER:
+        case ACTION.ADD_USER:
             return [...users, newUser(action.payload.name, action.payload.email)]
         default:
             return users;
@@ -106,7 +106,7 @@ function reducer (users, action) {
 }
 
 //Created a function that simply handles returning the data we need for making a new user
-function newUser (passedUserName, passedUserEmail){
+function newUser(passedUserName, passedUserEmail){
     return {id: Date.now(), name: passedUserName, email: passedUserEmail }
 }
 
@@ -131,15 +131,14 @@ const User = (props) => {
     const [userId, setUserId] = useState();
 
 
-    //HANDLES THE SUBMIT BUTTON - it calls dispatch so that reducer handles our functionality
+    //HANDLES THE SUBMIT BUTTON - it calls dispatch which will call reducer() and pass it the variables we need
     const handleUserSubmit = (event) => {
         event.preventDefault();
-        dispatch({ type: ACTIONS.ADD_USER, payload: { name: userName, email: userEmail}})
+        dispatch({ type: ACTION.ADD_USER, payload: { name: userName, email: userEmail}})
     }
 
     console.log(users)
-
-
+    
 
     //OUR RETURN
     return (
