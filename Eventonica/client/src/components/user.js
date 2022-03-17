@@ -110,6 +110,7 @@ function newUser(passedUserName, passedUserEmail){
     return {id: Date.now(), name: passedUserName, email: passedUserEmail }
 }
 
+///////////////////*Can right click and choose Find All Refenrences*///////////////
 
 const User = (props) => {
     /*
