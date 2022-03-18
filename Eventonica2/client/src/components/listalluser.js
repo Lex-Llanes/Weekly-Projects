@@ -57,7 +57,8 @@ const ListAllUsers = (props) => {
                     </td>
                     <button 
                         className="btn btn-danger"
-                        onClick={() => deleteUser(user.id)}                    >Delete</button>
+                        onClick={() => deleteUser(user.id)}
+                    >Delete</button>
                 </tr>
             ))}
 
