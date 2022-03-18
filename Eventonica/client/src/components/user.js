@@ -86,12 +86,13 @@
 
 
 
-import React, { useState, useReducer } from "react"
+import React, { useState, useReducer, useEffect } from "react"
 
 
 //Actions used by reducer to see which switch to fire, the dispatch will pick one to send to reducer()
 const ACTION = {
-    ADD_USER: "add-user"
+    ADD_USER: "add-user",
+    DELETE_USER: "delete-user"
 }
 
 
@@ -122,28 +123,58 @@ const User = (props) => {
         ##[] -> this parameter can be anyting usually an object but because we will need to store several object
             we will set it as an array to hold all our objects
     */
-    const [users, dispatch] = useReducer(reducer, [])
+    const [users, setUsers] = useReducer(reducer, [])
     
-
     //OUR STATES
     const [userName, setUserName] = useState();
     const [userEmail, setUserEmail] = useState();
-    const [userId, setUserId] = useState();
-
 
     //HANDLES THE SUBMIT BUTTON - it calls dispatch which will call reducer() and pass it the variables we need
-    const handleUserSubmit = (event) => {
+    const handleAddUserSubmit = (event) => {
         event.preventDefault();
-        dispatch({ type: ACTION.ADD_USER, payload: { name: userName, email: userEmail}})
+        setUsers({ type: ACTION.ADD_USER, payload: { name: userName, email: userEmail}})
     }
 
-    console.log(users)
+    //The function that will fetch the user data for us
+    const getUsers = async () => {
+        const response = await fetch('http://localhost:4000/users');
+        const user = await response.json();
+        setUsers(user);
+    };
     
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newUser = { id: Date.now(), name: userName, email: userEmail };
+      
+        const rawResponse = await fetch('http://localhost:4000/users', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newUser)
+        });
+        const content = await rawResponse.json();
+      
+        setUsers([...users, content]);
+      };
+
+
+    //useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    useEffect(() => {
+        getUsers();
+        console.log(users)
+    }, [users]);
+
+
+        
 
     //OUR RETURN
     return (
         <div>
-            <form onSubmit={handleUserSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label for="userName">Name</label>
                 <br></br>
                 <input

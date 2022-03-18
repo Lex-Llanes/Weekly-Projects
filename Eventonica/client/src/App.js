@@ -10,7 +10,7 @@ function App() {
      <User />
      <br></br>
      <br></br>
-     
+     <br></br>
      <Events />
     </div>
   );
