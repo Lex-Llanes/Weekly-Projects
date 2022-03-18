@@ -11,7 +11,7 @@ app.use(express.json()) // --> Allows us to access the req.body
 
 //ROUTES//
 /*GET all users*/
-app.get('/listofusers', async (req, res) => {
+app.get('/user', async (req, res) => {
     try {
         //Create a variable that calls the data we want from the database
         const allusers = await pool.query("SELECT * FROM users");
@@ -24,7 +24,7 @@ app.get('/listofusers', async (req, res) => {
 
 
 /*GET a user*/
-app.get('/getuser/:id', async (req, res) => {
+app.get('/user/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const user = await pool.query("SELECT * FROM users WHERE id = $1" , [id]);
@@ -40,14 +40,12 @@ app.get('/getuser/:id', async (req, res) => {
 app.post('/user', async (req, res) => {
     try {
         //Destructuring the json body { name: "" , email: ""}
-        const { name } = req.body; 
-        const { email } = req.body;
+        const { userName } = req.body; 
+        const { userEmail } = req.body;
         const newUser = await pool.query(
             //Insert data into users table, colums name and email VALUES $1 means the first value in the upcoming array aka name
-            'INSERT INTO users(name, email) VALUES($1, $2) RETURNING *', [name, email]
+            'INSERT INTO users(name, email) VALUES($1, $2) RETURNING *', [userName, userEmail]
         )
-
-
         res.json(newUser.rows[0]);
     } catch (error) {
         console.error(error.message);
@@ -56,7 +54,7 @@ app.post('/user', async (req, res) => {
 
 
 /*UPDATE a user*/
-app.put('/updateuser/:id', async (req, res) => {
+app.put('/user/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
@@ -70,7 +68,7 @@ app.put('/updateuser/:id', async (req, res) => {
 
 
 /*DELETE a user*/
-app.delete('/deleteuser/:id', async (req, res) => {
+app.delete('/user/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [id]);
