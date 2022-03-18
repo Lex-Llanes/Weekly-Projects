@@ -107,12 +107,12 @@ app.post('/event', async (req, res) => {
 
 
 /*GET all events*/
-app.get('/user', async (req, res) => {
+app.get('/event', async (req, res) => {
     try {
         //Create a variable that calls the data we want from the database
-        const allusers = await pool.query("SELECT * FROM users");
+        const allevents = await pool.query("SELECT * FROM events");
         //Then send as a response the data rows
-        res.json(allusers.rows);
+        res.json(allevents.rows);
     } catch {
 
     }
@@ -120,12 +120,12 @@ app.get('/user', async (req, res) => {
 
 
 /*GET a event*/
-app.get('/user/:id', async (req, res) => {
+app.get('/event/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await pool.query("SELECT * FROM users WHERE id = $1" , [id]);
+        const event = await pool.query("SELECT * FROM events WHERE id = $1" , [id]);
 
-        res.json(user.rows[0])
+        res.json(event.rows[0])
     } catch (error) {
         console.error(error.message)
     }
@@ -133,13 +133,13 @@ app.get('/user/:id', async (req, res) => {
 
 
 /*UPDATE a event*/
-app.put('/user/:id', async (req, res) => {
+app.put('/event/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const { name } = req.body;
-        const updateUser = await pool.query("UPDATE users SET name = $1 WHERE id = $2", [name, id])
+        const { eventId } = req.params;
+        const { eventName } = req.body;
+        const updateEvent = await pool.query("UPDATE events SET event_name = $1 WHERE event_id = $2", [eventName, eventId])
         
-        res.json("The user was updated");
+        res.json("The event was updated");
     } catch (error) {
         console.error(error.message)
     }
@@ -150,7 +150,7 @@ app.put('/user/:id', async (req, res) => {
 app.delete('/event/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await pool.query("DELETE FROM events WHERE id = $1", [id]);
+        const deleteEvent = await pool.query("DELETE FROM events WHERE event_id = $1", [id]);
         res.json("Event was delete")
     } catch (error) {
         console.error(error.message)
@@ -168,6 +168,6 @@ app.delete('/event/:id', async (req, res) => {
 
 
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000")
+app.listen(3001, () => {
+    console.log("Server is running on port 3001")
 })

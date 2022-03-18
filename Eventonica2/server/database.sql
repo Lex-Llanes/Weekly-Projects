@@ -3,7 +3,7 @@ CREATE DATABASE eventonica;
 
 
 --Creates user table
-CREATE TABLE user(
+CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
     user_name VARCHAR(255),
     user_email VARCHAR(255) 

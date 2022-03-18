@@ -8,10 +8,10 @@ const AddUser = (props) => {
 
 
   const handleAddUserSubmit = async (event) => {
-    event.preventDefault()
+    //event.preventDefault()
     try {
       const body = { userName, userEmail }
-      const response = await fetch("http://localhost:5000/user",
+      const response = await fetch("http://localhost:3001/user",
         {method: "POST",
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify(body)
@@ -25,7 +25,7 @@ const AddUser = (props) => {
   
   return (
     <>
-        <h1>inputUser</h1>
+        <h1>ADD USER FORM</h1>
         <form onSubmit={handleAddUserSubmit}>
           <input
             className="form-control"

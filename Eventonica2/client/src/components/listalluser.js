@@ -10,7 +10,7 @@ const ListAllUsers = (props) => {
     //Delete user
     async function deleteUser (id) {
         try {
-            const response = await fetch (`http://localhost:5000/user/${id}`,{ method: "DELETE"})
+            const response = await fetch (`http://localhost:3001/user/${id}`,{ method: "DELETE"})
             setUserDetails(userDetails.filter(user => user.id !== id))
         } catch (error) {
             console.error(error.message)
@@ -21,7 +21,7 @@ const ListAllUsers = (props) => {
 
     //function to get out list of users data
     async function getAllUsers(){
-        const response =  await fetch("http://localhost:5000/user");
+        const response =  await fetch("http://localhost:3001/user");
         const listOfUsers = await response.json()
 
         setUserDetails(listOfUsers)

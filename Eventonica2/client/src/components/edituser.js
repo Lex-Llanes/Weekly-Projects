@@ -14,7 +14,7 @@ const EditUser = ( { userDetails }) => {
 
             const body = name;
 
-            const response = await fetch(`http://localhost:5000/user/${id}`, {
+            const response = await fetch(`http://localhost:3001/user/${id}`, {
                 method: "PUT",
                 header: { "Content-Type": "appication/json"},
                 body: JSON.stringify(body)
@@ -58,6 +58,8 @@ console.log(name)
                     />
                 </div>
                 <div class="modal-footer">
+
+                    {/* CONFIRM EDIT BUTTON */}
                     <button 
                         type="button" 
                         class="btn btn-warning" 
@@ -66,6 +68,8 @@ console.log(name)
                     >
                         Edit
                     </button>
+
+                    {/* CLOSE MODAL BUTTON */}
                     <button 
                         type="button" 
                         class="btn btn-danger" 
