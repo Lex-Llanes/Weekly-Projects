@@ -19,7 +19,7 @@ const ListAllUsers = (props) => {
 
 
 
-    //function to get out list of users data
+    //GET ALL USER DATA FROM API
     async function getAllUsers(){
         const response =  await fetch("http://localhost:5000/user");
         const listOfUsers = await response.json()
@@ -52,10 +52,10 @@ const ListAllUsers = (props) => {
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
-                    <td> 
-                        <EditUser userDetails={user}/> 
+                    <td>
+                        <EditUser userDetails={user}/>
                     </td>
-                    <button 
+                    <button
                         className="btn btn-danger"
                         onClick={() => deleteUser(user.id)}                    >Delete</button>
                 </tr>
